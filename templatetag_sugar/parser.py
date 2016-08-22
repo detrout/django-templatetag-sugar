@@ -1,7 +1,7 @@
 from collections import deque
 from copy import copy
 
-from django.db.models.loading import cache
+from django.apps import apps
 from django.template import TemplateSyntaxError
 
 from templatetag_sugar.node import SugarNode
@@ -118,4 +118,4 @@ class Model(NamedParsable):
     def parse(self, parser, bits):
         bit = bits.popleft()
         app, model = bit.split(".")
-        return [(self, self.name, cache.get_model(app, model))]
+        return [(self, self.name, apps.get_model(app, model))]
